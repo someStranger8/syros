@@ -1,5 +1,8 @@
 # --- Flanterm Library ---
-flanterm_sources = ['flanterm/src/flanterm.c', 'flanterm/src/flanterm_backends/fb.c']
+flanterm_sources = [
+    'flanterm/src/flanterm.c',
+    'flanterm/src/flanterm_backends/fb.c',
+]
 
 flanterm_includes = include_directories('flanterm/src/')
 
@@ -7,7 +10,7 @@ flanterm_lib = static_library(
     'flanterm',
     flanterm_sources,
     include_directories: flanterm_includes,
-    pic: false, 
+    pic: false,
 )
 
 flanterm_dep = declare_dependency(

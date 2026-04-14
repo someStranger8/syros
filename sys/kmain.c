@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+#include <sys/serial.h>
+
 #include <flanterm.h>
 #include <flanterm_backends/fb.h>
 #include <limine.h>
@@ -11,21 +13,24 @@
 #include <stddef.h>
 #include <stdint.h>
 
-__attribute__((used, section(".limine_requests"))) static volatile uint64_t
-	limine_base_revision[] = LIMINE_BASE_REVISION(6);
+#define LIMINE_REQUEST __attribute__((used, section(".limine_requests")))
+#define LIMINE_REQUESTS_START \
+	__attribute__((used, section(".limine_requests_start")))
+#define LIMINE_REQUESTS_END \
+	__attribute__((used, section(".limine_requests_end")))
 
-__attribute__((used, section(".limine_requests"))) static volatile struct
-	limine_framebuffer_request framebuffer_request = {
-		.id	  = LIMINE_FRAMEBUFFER_REQUEST_ID,
-		.revision = 0
-	};
+LIMINE_REQUEST static volatile uint64_t limine_base_revision[] =
+	LIMINE_BASE_REVISION(6);
 
-__attribute__((used,
-	section(".limine_requests_start"))) static volatile uint64_t
-	limine_requests_start_marker[] = LIMINE_REQUESTS_START_MARKER;
+LIMINE_REQUEST static volatile struct limine_framebuffer_request
+	framebuffer_request = { .id = LIMINE_FRAMEBUFFER_REQUEST_ID,
+		.revision	    = 0 };
 
-__attribute__((used, section(".limine_requests_end"))) static volatile uint64_t
-	limine_requests_end_marker[] = LIMINE_REQUESTS_END_MARKER;
+LIMINE_REQUESTS_START static volatile uint64_t limine_requests_start_marker[] =
+	LIMINE_REQUESTS_START_MARKER;
+
+LIMINE_REQUESTS_END static volatile uint64_t limine_requests_end_marker[] =
+	LIMINE_REQUESTS_END_MARKER;
 
 static void
 hcf(void)
@@ -61,6 +66,9 @@ kmain(void)
 
 	const char msg[] = "Hello World!\n";
 	flanterm_write(ft_ctx, msg, sizeof(msg) - 1);
+
+	serial_init();
+	serial_puts(msg);
 
 	hcf();
 }

@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 
 # isogen.sh - Generates an iso image of syros
 

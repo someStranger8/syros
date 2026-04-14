@@ -8,7 +8,8 @@ if [ -e ./syros.iso ]; then
     		-cdrom syros.iso \
     		-m 512M \
     		-boot d \
-    		-enable-kvm
+    		-enable-kvm \
+		-serial stdio
 else 
 	echo "syros.iso file not found"
 fi
