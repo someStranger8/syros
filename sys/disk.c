@@ -51,7 +51,7 @@ read_sectors(u32 lba, u32 count, u16 *buf)
 }
 
 void
-write_sectors(u32 lba, u32 count, u32 *buf)
+write_sectors(u32 lba, u32 count, u16 *buf)
 {
 	ata_wait_ready();
 

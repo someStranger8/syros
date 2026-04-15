@@ -20,4 +20,12 @@ typedef int16_t i16;
 typedef int32_t i32;
 typedef int64_t i64;
 
+/*
+ * usize is for addresses
+ * isize is for offsets that may be negative */
+typedef __SIZE_TYPE__	 usize;
+typedef __PTRDIFF_TYPE__ isize;
+
+typedef _Bool bool;
+
 #endif
