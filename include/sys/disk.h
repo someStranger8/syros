@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+#ifdef __KERNEL__
+
 #ifndef _DISK_H_
 #define _DISK_H_
 
@@ -29,5 +31,7 @@
 
 void read_sectors(uint32_t lba, uint32_t count, uint16_t *buf);
 void write_sectors(uint32_t lba, uint32_t count, uint16_t *buf);
+
+#endif
 
 #endif

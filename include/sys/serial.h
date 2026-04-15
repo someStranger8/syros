@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+#ifdef __KERNEL__
+
 #ifndef _SERIAL_H_
 #define _SERIAL_H_
 
@@ -13,5 +15,7 @@ void serial_init();
 int  is_transmit_empty();
 void serial_putc(char a);
 void serial_puts(const char *str);
+
+#endif
 
 #endif

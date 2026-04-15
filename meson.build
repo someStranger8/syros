@@ -16,6 +16,7 @@ project(
 cc = meson.get_compiler('c')
 
 add_project_arguments(
+    '-D__KERNEL__',
     '-ffreestanding',
     '-fno-pic',
     '-fno-stack-protector',
