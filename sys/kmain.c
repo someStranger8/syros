@@ -73,9 +73,9 @@ kmain(void)
 	serial_init();
 	serial_puts("Testing serial output\r\n");
 
-	uint16_t write_buf[SECTOR_SIZE_WORDS];
-	uint16_t read_buf[SECTOR_SIZE_WORDS];
-	uint32_t target_lba = 100;
+	u16 write_buf[SECTOR_SIZE_WORDS];
+	u16 read_buf[SECTOR_SIZE_WORDS];
+	u32 target_lba = 100;
 
 	memset(write_buf, 0, sizeof(write_buf));
 	const char *msg =

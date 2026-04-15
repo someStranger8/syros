@@ -10,31 +10,32 @@
 #define _ASM_H_
 
 #include <stdint.h>
+#include <sys/types.h>
 
-inline uint8_t
-inb(uint16_t port)
+inline u8
+inb(u16 port)
 {
-	uint8_t ret;
+	u8 ret;
 	asm volatile("inb %1, %0" : "=a"(ret) : "Nd"(port));
 	return ret;
 }
 
-inline uint16_t
-inw(uint16_t port)
+inline u16
+inw(u16 port)
 {
-	uint16_t ret;
+	u16 ret;
 	asm volatile("inw %1, %0" : "=a"(ret) : "Nd"(port));
 	return ret;
 }
 
 inline void
-outb(uint16_t port, uint8_t val)
+outb(u16 port, u8 val)
 {
 	asm volatile("outb %0, %1" : : "a"(val), "Nd"(port));
 }
 
 inline void
-outw(uint16_t port, uint16_t val)
+outw(u16 port, u16 val)
 {
 	asm volatile("outw %0, %1" : : "a"(val), "Nd"(port));
 }

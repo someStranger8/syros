@@ -29,8 +29,10 @@
 
 #define SECTOR_SIZE_WORDS 256
 
-void read_sectors(uint32_t lba, uint32_t count, uint16_t *buf);
-void write_sectors(uint32_t lba, uint32_t count, uint16_t *buf);
+#include <sys/types.h>
+
+void read_sectors(u32 lba, u32 count, u16 *buf);
+void write_sectors(u32 lba, u32 count, u16*buf);
 
 #endif
 

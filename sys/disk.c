@@ -6,6 +6,7 @@
 
 #include <sys/asm.h>
 #include <sys/disk.h>
+#include <sys/types.h>
 
 #include <stdint.h>
 
@@ -25,24 +26,24 @@ ata_wait_drq(void)
 }
 
 void
-read_sectors(uint32_t lba, uint32_t count, uint16_t *buf)
+read_sectors(u32 lba, u32 count, u16 *buf)
 {
 	ata_wait_ready();
 
 	outb(ATA_LBA, (0xE0 | ((lba >> 24) & 0x0F)));
 
-	outb(ATA_SECTOR_COUNT, (uint8_t)count);
+	outb(ATA_SECTOR_COUNT, (u8)count);
 
-	outb(ATA_LBA_LOW, (uint8_t)lba);
-	outb(ATA_LBA_MID, (uint8_t)(lba >> 8));
-	outb(ATA_LBA_HIGH, (uint8_t)(lba >> 16));
+	outb(ATA_LBA_LOW, (u8)lba);
+	outb(ATA_LBA_MID, (u8)(lba >> 8));
+	outb(ATA_LBA_HIGH, (u8)(lba >> 16));
 
 	outb(ATA_COMMAND_PORT, ATA_COMMAND_READ_SECTORS);
 
-	for (uint32_t s = 0; s < count; s++)
+	for (u32 s = 0; s < count; s++)
 	{
 		ata_wait_ready();
-		for (int i = 0; i < SECTOR_SIZE_WORDS; i++)
+		for (u32 i = 0; i < SECTOR_SIZE_WORDS; i++)
 		{
 			*buf++ = inw(ATA_DATA_PORT);
 		}
@@ -50,28 +51,28 @@ read_sectors(uint32_t lba, uint32_t count, uint16_t *buf)
 }
 
 void
-write_sectors(uint32_t lba, uint32_t count, uint16_t *buf)
+write_sectors(u32 lba, u32 count, u32 *buf)
 {
 	ata_wait_ready();
 
 	outb(ATA_LBA, (0xE0 | ((lba >> 24) & 0x0F)));
 
-	for (int i = 0; i < 4; i++)
+	for (u8 i = 0; i < 4; i++)
 		inb(ATA_COMMAND_PORT);
 
-	outb(ATA_SECTOR_COUNT, (uint8_t)count);
+	outb(ATA_SECTOR_COUNT, (u8)count);
 
-	outb(ATA_LBA_LOW, (uint8_t)lba);
-	outb(ATA_LBA_MID, (uint8_t)(lba >> 8));
-	outb(ATA_LBA_HIGH, (uint8_t)(lba >> 16));
+	outb(ATA_LBA_LOW, (u8)lba);
+	outb(ATA_LBA_MID, (u8)(lba >> 8));
+	outb(ATA_LBA_HIGH, (u8)(lba >> 16));
 
 	outb(ATA_COMMAND_PORT, ATA_COMMAND_WRITE_SECTORS);
 
-	for (uint32_t s = 0; s < count; s++)
+	for (u8 s = 0; s < count; s++)
 	{
 		ata_wait_drq();
 
-		for (int i = 0; i < SECTOR_SIZE_WORDS; i++)
+		for (u32 i = 0; i < SECTOR_SIZE_WORDS; i++)
 			outw(ATA_DATA_PORT, *buf++);
 	}
 
