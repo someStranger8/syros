@@ -1,4 +1,4 @@
-syros_sources = files('kmain.c', 'memory.c', 'serial.c', 'ext2/disk.c')
+syros_sources = files('disk.c' 'kmain.c', 'memory.c', 'serial.c',)
 
 # nasm = find_program('nasm')
 # nasm_gen = generator(

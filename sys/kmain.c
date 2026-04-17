@@ -14,7 +14,7 @@
 #include <stdint.h>
 #include <string.h>
 
-#include "ext2/disk.h"
+#include "disk.h"
 
 #define LIMINE_REQUEST __attribute__((used, section(".limine_requests")))
 #define LIMINE_REQUESTS_START \
