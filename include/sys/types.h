@@ -7,6 +7,7 @@
 #ifndef _SYS_TYPES_H_
 #define _SYS_TYPES_H_
 
+#include <stdbool.h>
 #include <stdint.h>
 
 /* Integer types */
@@ -25,7 +26,5 @@ typedef int64_t i64;
  * isize is for offsets that may be negative */
 typedef __SIZE_TYPE__	 usize;
 typedef __PTRDIFF_TYPE__ isize;
-
-typedef _Bool bool;
 
 #endif

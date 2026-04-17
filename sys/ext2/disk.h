@@ -22,17 +22,21 @@
 #define ATA_COMMAND_READ_SECTORS 0x20
 #define ATA_COMMAND_WRITE_SECTORS 0x30
 #define ATA_COMMAND_FLUSH_CACHE 0xE7
+#define ATA_COMMAND_IDENTIFY_DEVICE 0xEC
 
 #define ATA_BSY 0x80
 #define ATA_DRDY 0x40
 #define ATA_DRQ 0x08
 
+#define ATA_MASTER_DRIVER 0xA0
+
 #define SECTOR_SIZE_WORDS 256
 
 #include <sys/types.h>
 
-void read_sectors(u32 lba, u32 count, u16 *buf);
-void write_sectors(u32 lba, u32 count, u16*buf);
+void disk_read_sectors(u32 lba, u32 count, u16 *buf);
+void disk_write_sectors(u32 lba, u32 count, u16*buf);
+u64  disk_total_bytes();
 
 #endif
 
